@@ -424,10 +424,9 @@ in this part we address some networking basics including IP address, MAC address
 the following figure dipicts how IP addresses is assigned and used:
 
 <p align="center">
-  <img src="https://www.ipxo.com/app/uploads/2024/03/blog-image.png" alt="IP address">
+  <img src="/images/ipadd.png" alt="IP address">
 </p>
 
-  ![IP address](https://www.ipxo.com/app/uploads/2024/03/blog-image.png)
 
 ## Types of IP Addresses
 1. IPv4: The most widely used version, consisting of four octets (e.g., 192.168.1.1). It allows for approximately 4.3 billion unique addresses.
@@ -444,7 +443,7 @@ the following figure dipicts how IP addresses is assigned and used:
 1. Routing: IP addresses enable routers to forward data packets to the correct destination. Each packet contains the sender's and receiver's IP addresses, ensuring that data reaches its intended target.
 
 <p align="center">
-  <img src="https://www.ipxo.com/app/uploads/2022/04/Network-Routing5.png" alt="routing">
+  <img src="/images/routing.png" alt="routing">
 </p>
 
 2. Network Interface Identification: Devices on a local network (such as computers, printers, and smartphones) are identified by their IP addresses, allowing for communication and resource sharing.
@@ -470,7 +469,7 @@ A **MAC address**, or **Media Access Control address**, is a unique identifier a
 2. Format: A MAC address consists of 48 bits, typically represented in hexadecimal format. The first half of the address identifies the manufacturer (Organizationally Unique Identifier, or OUI), while the second half identifies the specific device. It is a series of six pairs of hexadecimal digits, separated by colons or hyphens. For example:  00:1A:2B:3C:4D:5E
 
 <p align="center">
-  <img src="https://media.fs.com/images/ckfinder/ftp_images/tutorial/mac-addresse-numbers.jpg" alt="mac-address">
+  <img src="/images//mac-addresse-numbers (1).jpg" alt="mac-address">
 </p>
 
 ## Differences Between MAC and IP Addresses
