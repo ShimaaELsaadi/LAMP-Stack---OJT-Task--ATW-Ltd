@@ -264,6 +264,7 @@ This document details the steps to set up a LAMP stack on a Linux server, create
     ![Text](images/tablelocal.png)
 
    (AWS EC2)
+
     ![Database Entries](images/tableaws.png)
 
 ---
@@ -426,6 +427,7 @@ the following figure dipicts how IP addresses is assigned and used:
   <img src="https://www.ipxo.com/app/uploads/2024/03/blog-image.png" alt="IP address">
 </p>
 
+  ![IP address](https://www.ipxo.com/app/uploads/2024/03/blog-image.png)
 
 ## Types of IP Addresses
 1. IPv4: The most widely used version, consisting of four octets (e.g., 192.168.1.1). It allows for approximately 4.3 billion unique addresses.
