@@ -86,7 +86,7 @@ This document details the steps to set up a LAMP stack on a Linux server, create
 
 2. **SSH into the Instance:**
    ```bash
-   ssh -i lampkey.pem ubuntu@3.142.252.60
+   ssh -i lampkey.pem ubuntu@16.171.32.214
    ```
 
 3. **Install Apache, MySQL, and PHP:**
@@ -114,7 +114,7 @@ This document details the steps to set up a LAMP stack on a Linux server, create
    - Obtain the public IP from the EC2 dashboard.
    - Visit:
      ```
-     http://3.142.252.60/
+     http://16.171.32.214/
      ```
 
 ---
@@ -148,7 +148,7 @@ This document details the steps to set up a LAMP stack on a Linux server, create
      (Local Machine) 
     or
      ```
-     http://3.142.252.60/
+     http://16.171.32.214/
      ```
      (AWS EC2)
 
@@ -250,7 +250,7 @@ This document details the steps to set up a LAMP stack on a Linux server, create
       ![Text](images/weblocal.png)
      or
      ```
-     http://3.142.252.60/
+     http://16.171.32.214/
      ```
      (AWS EC2)
       ![Text](images/WEBAWS.png)
@@ -280,7 +280,7 @@ This document details the steps to set up a LAMP stack on a Linux server, create
 3. **Test Accessibility:**
    - Visit:
      ```
-     http://3.142.252.60/
+     http://16.171.32.214/
      ```
      ![Text](images/WEBAWS.png)
 
@@ -577,9 +577,15 @@ To connect to a cloud-based Linux instance from a remote machine using SSH, foll
 
 ### Obtain the cloud instance's public IP address or hostname:
 This information is typically provided by the cloud service provider when you create the instance.
+Find the public IP address of your cloud instance from your provider's dashboard.
 ### Ensure you have a valid SSH key pair:
+Ensure you have the private key (.pem or .ppk file) provided during instance setup.
 If you don't have an SSH key pair, you can generate one using a tool like ssh-keygen on your local machine.
 The public key should be added to the cloud instance's authorized_keys file.
+### Set Permissions for the SSH Key:
+   ```bash
+      chmod 400 /path/to/your-key.pem
+   ```
 ### Configure your local SSH client:
 Open your terminal or command prompt on your local machine.
 Ensure that the SSH client is installed. Most modern operating systems have an SSH client built-in (e.g., OpenSSH on Linux/macOS, PuTTY on Windows).
@@ -590,9 +596,16 @@ In the terminal, use the following command to connect to the cloud instance:
 - Replace <path_to_private_key_file> with the path to your private SSH key file.
 - Replace <username> with the appropriate username for the cloud instance, typically ec2-user for Amazon EC2 instances or ubuntu for Ubuntu-based instances.
 - Replace <cloud_instance_ip_or_hostname> with the public IP address or hostname of the cloud instance.
+- Examble:
+    ![Text](images/sshco.png)
+
 ### Authenticate using your SSH key:
 - If the connection is successful, you will be prompted to authenticate using your SSH private key.
 - Provide the passphrase for the private key, if you set one during the key generation process.
 ### Verify the connection:
 Once authenticated, you should be connected to the cloud-based Linux instance, and you can interact with it using the command line.
 
+---
+
+# 3.Conclusion
+This README provides an overview of the LAMP stack setup, networking concepts, and remote instance connection. For further questions, feel free to contact me through the repository.
