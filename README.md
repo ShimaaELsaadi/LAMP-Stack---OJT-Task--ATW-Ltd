@@ -1,4 +1,4 @@
-# LAMP Stack Project: Setup and Deployment Guide
+# 1. LAMP Stack Project: Setup and Deployment Guide
 
 ![LAMP Stack Architecture](images/lamp.png)
 
@@ -304,7 +304,7 @@ This document details the steps to set up a LAMP stack on a Linux server, create
    ```bash
    cd /home/shaimaa/LAMP-Stack-Project
    ```
-   ![Git Init](images/cd.png)
+    ![Git Init](images/cd.png)
 
 2. Initialize Git:
    ```bash
@@ -360,6 +360,7 @@ This document details the steps to set up a LAMP stack on a Linux server, create
 
 1. **Create a Repository on GitHub:**
    - Navigate to [GitHub](https://github.com) and create a new repository.
+
      ![Text](images/newrepo.png)
    -  Fill in the repository details:
      - **Name**:`LAMP Stack - (OJT)Task- ATW Ltd`.
@@ -386,8 +387,8 @@ This document details the steps to set up a LAMP stack on a Linux server, create
 ## Conclusion
 By following the steps in this guide, you can successfully set up a LAMP stack, host a PHP-based website with database functionality, and make it publicly accessible on AWS. Additionally, version control with Git and GitHub ensures an organized and collaborative workflow.
 
-
-# Networking Basics
+---
+# 2.Networking Basics
 
 <p align="center">
   <img src="https://static.itez.com/itez-content/iAd6BhFDC12Kn6YjJHByglje0c9669XOskKQX3zp.png" alt="networks">
