@@ -1,6 +1,26 @@
 # LAMP Stack Project: Setup and Deployment Guide
+
 ![LAMP Stack Architecture](images/lamp.png)
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Description](#description)
+3. [Prerequisites](#prerequisites)
+4. [Steps](#steps)
+   - [Task 1: Install Required Packages](#task-1-install-required-packages)
+   - [Task 2: Configure Apache](#task-2-configure-apache)
+   - [Task 3: Create a Simple Website](#task-3-create-a-simple-website)
+   - [Task 4: Configure MySQL](#task-4-configure-mysql)
+   - [Task 5: Modify the Website to Use the Database](#task-5-modify-the-website-to-use-the-database)
+   - [Task 6: Make the Website Publicly Accessible](#task-6-make-the-website-publicly-accessible)
+5. [Git & GitHub](#git--github)
+   - [Initialize Git Locally](#1-initialize-git-locally)
+   - [Create a .gitignore File](#2-create-a-gitignore-file)
+   - [Commit Changes Locally](#3-commit-changes-locally)
+   - [Push to GitHub](#4-push-to-github)
+6. [Conclusion](#conclusion)
+
+---
 
 ## Overview
 This document details the steps to set up a LAMP stack on a Linux server, create a simple PHP-based website with database functionality, and make it publicly accessible via AWS.
@@ -9,9 +29,10 @@ This document details the steps to set up a LAMP stack on a Linux server, create
 
 ## Description
 
-[LAMP]is a powerful bash script for the installation of Apache + PHP + MySQL/MariaDB and so on. You can install Apache + PHP + MySQL/MariaDB in an very easy way, just need to choose what you want to install before installation.
+**[LAMP]** is a powerful bash script for the installation of Apache, PHP, MySQL/MariaDB, and other components. You can easily install these components by choosing what you want during the installation process.
 
 ---
+
 ## Prerequisites
 - AWS Account
 - Basic knowledge of Linux and Apache
@@ -21,9 +42,9 @@ This document details the steps to set up a LAMP stack on a Linux server, create
 
 ## Steps
 
-## **Task 1: Install Required Packages**
+### **Task 1: Install Required Packages**
 
-### **Local Machine**
+#### **Local Machine**
 1. **Update Package List:**
    ```bash
    sudo apt-get update
@@ -35,35 +56,33 @@ This document details the steps to set up a LAMP stack on a Linux server, create
    sudo apt-get install apache2 mysql-server php libapache2-mod-php php-mysql -y
    ```
    ![Install Apache, MySQL, and PHP](images/install.png)
+
 3. **Verify Installation:**
-   - Text:
+   - Check Apache status:
      ```bash
      sudo systemctl status apache2
      ```
-     ![Text](images/testApache.png)
+     ![Apache Status](images/testApache.png)
    - Check MySQL status:
      ```bash
      sudo systemctl status mysql
      ```
-     ![Text](images/testMySQL.png)
+     ![MySQL Status](images/testMySQL.png)
 
-### **AWS EC2 Instance**
+#### **AWS EC2 Instance**
 1. **Launch an EC2 Instance:**
    - Go to the [AWS Management Console](https://aws.amazon.com/console/).
    - Sign in with your AWS account credentials.
-   - In the AWS Management Console, locate the **Services** dropdown.
-   - Click on **EC2** under the Compute section.
-    ![Text](images/EC2seviceAWS.png)
-   - In the EC2 Dashboard, click on the **Launch Instances** button.
-    ![Text](images/LUNCHEC2.png)
-   - Select an Ubuntu AMI 
-    ![Text](images/EC2AMI.png)
+   - Navigate to **Services** > **EC2** under the Compute section.
+     ![Text](images/EC2seviceAWS.png)
+   - Click **Launch Instances**
+     ![Text](images/LUNCHEC2.png)
+   - select an Ubuntu AMI.
+     ![Launch EC2](images/EC2AMI.png)
    - Choose an instance type.
-    ![Text](images/EC2TYPE.png)
+     ![Instance Type](images/EC2TYPE.png)
    - Configure security groups to allow SSH (port 22).
-   - Select an existing key pair or create a new one:
-        If creating a new key pair, download the `.pem` file and keep it secure.
-    ![Text](images/SSHKEY.png)
+     ![SSH Key Pair](images/SSHKEY.png)
 
 2. **SSH into the Instance:**
    ```bash
@@ -75,70 +94,71 @@ This document details the steps to set up a LAMP stack on a Linux server, create
 
 ---
 
-## **Task 2: Configure Apache**
+### **Task 2: Configure Apache**
 
 1. **Ensure Apache Serves Files from `/var/www/html/`:**
-   - This is the default configuration for Apache.
-       ```bash
-         ls /var/www/html/
-        ```
-    ![Text](images/apachconfj.png)
+   ```bash
+   ls /var/www/html/
+   ```
+   ![Apache Configuration](images/apachconfj.png)
+
 2. **Access the Website Locally:**
    - Open a browser and navigate to:
-     - Visit:
      ```
      http://localhost/
      ```
-     (Local Machine) 
+     ![Local Website](images/defultapache.png)
 
-### **AWS EC2 Instance**
+#### **AWS EC2 Instance**
 1. **Access the Website Externally:**
    - Obtain the public IP from the EC2 dashboard.
-   - In your browser, visit:
+   - Visit:
      ```
-     http://<public-ip>/
+     http://3.142.252.60/
      ```
-    ![Text](images/defultapache.png)
+
 ---
 
-## **Task 3: Create a Simple Website**
+### **Task 3: Create a Simple Website**
 
 1. **Replace `index.html` with `index.php`:**
-    - Remove the existing index.html file:
-        ```bash
-         sudo rm /var/www/html/index.html
-        ```
-   - create a new index.php file:
-        ```bash
-         sudo nano /var/www/html/index.php
-        ```
+   ```bash
+   sudo rm /var/www/html/index.html
+   sudo nano /var/www/html/index.php
+   ```
 
-   - Add the following PHP code to the file
-     <?php
-        echo "<h1>Hello, World!</h1>";
-     ?>
-   - Save the file and exit the editor (in Nano, press CTRL + X, then Y, and then Enter)
-   - Restart Apache
-        ```bash
-        sudo systemctl restart apache2
-        ```
-2. **Verify PHP Functionality:**
+2. **Add the Following PHP Code:**
+   ```php
+   <?php
+   echo "<h1>Hello, World!</h1>";
+   ?>
+   ```
+   Save and exit (CTRL + X, Y, Enter).
+
+3. **Restart Apache:**
+   ```bash
+   sudo systemctl restart apache2
+   ```
+
+4. **Verify PHP Functionality:**
    - Visit:
      ```
      http://localhost/
      ```
-     (Local Machine) or
+     (Local Machine) 
+    or
      ```
      http://3.142.252.60/
      ```
      (AWS EC2)
-    ![Text](images/hellophp.png) 
+
+     ![PHP Output](images/hellophp.png)
 
 ---
 
-## **Task 4: Configure MySQL**
+### **Task 4: Configure MySQL**
 
-### **Secure MySQL Installation**
+#### **Secure MySQL Installation**
 1. **Run the Secure Installation Script:**
    ```bash
    sudo mysql_secure_installation
@@ -147,13 +167,13 @@ This document details the steps to set up a LAMP stack on a Linux server, create
 2. **Follow the Prompts:**
    - Set a strong root password.
    - Remove anonymous users.
-   - Disallow root login remotely.
-    ![Text](images/setupMySQL.png) 
+   - Disallow remote root login.
+     ![MySQL Setup](images/setupMySQL.png)
    - Remove test databases.
    - Reload privilege tables.
-    ![Text](images/setupMySQL2.png) 
+     ![MySQL Setup](images/setupMySQL2.png)
 
-### **Create a Database and User**
+#### **Create a Database and User**
 1. **Log into MySQL:**
    ```bash
    sudo mysql -u root -p
@@ -167,67 +187,58 @@ This document details the steps to set up a LAMP stack on a Linux server, create
    FLUSH PRIVILEGES;
    exit;
    ```
-   ![Text](images/SQLedit.png)
+   ![Database Creation](images/SQLedit.png)
+
 3. **Verification:**
-    - To verify that your new database and user were created successfully, you can log back into MySQL and run the following commands:
-    ```sql
-    SHOW DATABASES;
-    SELECT User, Host FROM mysql.user;
-   ```  
-   ![Text](images/dbsqltest.png)
+   ```sql
+   SHOW DATABASES;
+   SELECT User, Host FROM mysql.user;
+   ```
+   ![Database Verification](images/dbsqltest.png)
 
 ---
 
-## **Task 5: Modify the Website to Use the Database**
+### **Task 5: Modify the Website to Use the Database**
 
 1. **Edit `index.php`:**
    ```bash
    sudo nano /var/www/html/index.php
    ```
 
-2. **Replace with the Following Code:**
+2. **Add the Following Code:**
    ```php
    <?php
-        // Database configuration
-        $servername = "localhost";
-        $username = "web_user"; // MySQL username
-        $password = "StrongPassword@123"; // MySQL password
-        $dbname = "web_db"; // database name
+   $servername = "localhost";
+   $username = "web_user";
+   $password = "StrongPassword@123";
+   $dbname = "web_db";
 
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+   $conn = new mysqli($servername, $username, $password, $dbname);
 
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+   if ($conn->connect_error) {
+       die("Connection failed: " . $conn->connect_error);
+   }
 
-        // Create a simple table if it doesn't exist
-        $sql = "CREATE TABLE IF NOT EXISTS visits (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            ip_address VARCHAR(45) NOT NULL,
-            visit_time DATETIME DEFAULT CURRENT_TIMESTAMP
-        )";
+   $sql = "CREATE TABLE IF NOT EXISTS visits (
+       id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+       ip_address VARCHAR(45) NOT NULL,
+       visit_time DATETIME DEFAULT CURRENT_TIMESTAMP
+   )";
 
-        if ($conn->query($sql) === TRUE) {
-            // Insert visitor's IP address into the table
-            $visitor_ip = $_SERVER['REMOTE_ADDR'];
-            $insert_sql = "INSERT INTO visits (ip_address) VALUES ('$visitor_ip')";
-            $conn->query($insert_sql);
-        }
+   if ($conn->query($sql) === TRUE) {
+       $visitor_ip = $_SERVER['REMOTE_ADDR'];
+       $insert_sql = "INSERT INTO visits (ip_address) VALUES ('$visitor_ip')";
+       $conn->query($insert_sql);
+   }
 
-        // Get the current time
-        $current_time = date('Y-m-d H:i:s');
+   $current_time = date('Y-m-d H:i:s');
 
-        // Display the message
-        echo "<h1>Hello, World!</h1>";
-        echo "<p>Your IP address is: " . $visitor_ip . "</p>";
-        echo "<p>The current time is: " . $current_time . "</p>";
+   echo "<h1>Hello, World!</h1>";
+   echo "<p>Your IP address is: $visitor_ip</p>";
+   echo "<p>The current time is: $current_time</p>";
 
-        // Close connection
-        $conn->close();
-        ?>
-
+   $conn->close();
+   ?>
    ```
 
 3. **Test the Updated Website:**
@@ -236,59 +247,42 @@ This document details the steps to set up a LAMP stack on a Linux server, create
      http://localhost/
      ```
      (Local Machine) 
-     ```
-     or 
-    http://3.142.252.60/  
-    ```
-     (AWS EC2)
-     ```
-
-
-## **Task 6: Testing Locally**
-1. **Local Machine:**
-   - Open a browser and navigate to:
-     ```
-     http://localhost/
-     ```
-    ![Text](images/weblocal.png)
-
-
-2. **AWS EC2 Instance:**
-   - Access the public IP in a browser:
-     ```
-    http://3.142.252.60/
-     ```
-    ![Text](images/WEBAWS.png)
-
-3. **Verification**
-   - After testing, you can log into MySQL and check if the visits table has been populated with your IP address:
-    ```sql
-    USE web_db;
-    SELECT * FROM visits;
-    ```
-    (Local Machine)
-    ![Text](images/tablelocal.png)
-
-    (AWS EC2)
-    ![Text](images/tableaws.png)
-     ```
----
-## **Task 7: Make the Website Publicly Accessible**
-
-1. **Configure Security Groups:**
-   - In AWS, edit the security group attached to the instance:
-     - Add a rule for HTTP (port 80) with source `0.0.0.0/0`.
-     - Add a rule for HTTPS (port 443).
-        ![Text](images/NETRULES.png)
-
-2. **Obtain the Public IP:**
-   - From the AWS EC2 dashboard, locate the public IPv4 address.
-
-3. **Test Accessibility:**
-   - Open a browser and navigate to:
+      ![Text](images/weblocal.png)
+     or
      ```
      http://3.142.252.60/
      ```
+     (AWS EC2)
+      ![Text](images/WEBAWS.png)
+
+4. **Verify Database Entries:**
+   ```sql
+   USE web_db;
+   SELECT * FROM visits;
+   ```
+   (Local Machine)
+    ![Text](images/tablelocal.png)
+
+   (AWS EC2)
+    ![Database Entries](images/tableaws.png)
+
+---
+
+### **Task 6: Make the Website Publicly Accessible**
+
+1. **Configure Security Groups:**
+   - Add rules for HTTP (port 80) and HTTPS (port 443) in the AWS security group.
+     ![Security Rules](images/NETRULES.png)
+
+2. **Obtain Public IP:**
+   - From the AWS EC2 dashboard, locate the public IPv4 address.
+
+3. **Test Accessibility:**
+   - Visit:
+     ```
+     http://3.142.252.60/
+     ```
+     ![Text](images/WEBAWS.png)
 
 4. **Troubleshooting:**
    - Ensure Apache is running:
@@ -300,59 +294,43 @@ This document details the steps to set up a LAMP stack on a Linux server, create
      sudo ufw allow 80
      sudo ufw allow 443
      ```
-# Notes
-- Remember to secure your AWS instance by limiting IP ranges for SSH and other services.
-- Always use strong passwords for database users.
 
 ---
 
-## References
-- [LAMP Stack Documentation](https://www.linux.com/what-is-lamp-stack)
-- [AWS EC2 User Guide](https://docs.aws.amazon.com/ec2/index.html)
+## **Git & GitHub**
 
----
-
-If you encounter any issues, feel free to reach out for support!
----
-
-# Git & GitHub
-
-## Steps
-
-### 1. Initialize Git Locally
-1. Open your terminal and navigate to your project directory:
+### **1. Initialize Git Locally**
+1. Navigate to your project directory:
    ```bash
-   cd /home/shaimaa/LAMP Stack-(OJT)Task-ATW Ltd
+   cd /home/shaimaa/LAMP-Stack-Project
    ```
-   ![Text](images/cd.png)
-2. Initialize Git in the project directory:
+   ![Git Init](images/cd.png)
+
+2. Initialize Git:
    ```bash
    git init
    ```
-   ![Text](images/gitinit.png)
+   ![Git Init](images/gitinit.png)
+
 ---
 
-### 2. Create a `.gitignore` File
-1. Create a `.gitignore` file using a text editor:
+### **2. Create a `.gitignore` File**
+
+1. **Create the File:**
    ```bash
    nano .gitignore
    ```
-2. Add entries to exclude sensitive files and unnecessary files. The content:
+
+2. **Add the Following Content:**
    ```
-    # Ignore sensitive files
+   # Ignore sensitive files
     *.env
     config.php
     db_credentials.php
     .gitignore
-    # Ignore log files
+   # Ignore log files
     *.log
-    lamp.log
-    upgrade_apache.log
-    upgrade_db.log
-    upgrade_php.log
-    upgrade_phpmyadmin.log
-    upgrade_adminer.log
-    # Ignore system files
+   # Ignore system files
     .DS_Store
     .vscode/
     pmaversion.txt
@@ -360,54 +338,54 @@ If you encounter any issues, feel free to reach out for support!
     mysql_bkup/
     mariadb_bkup/
    ```
-3. Save and exit the file (`CTRL + O`, `Enter`, `CTRL + X`).
+   Save and exit (CTRL + X, Y, Enter).
 
 ---
 
-### 3. Commit Documentation & Source Code
-1. Add your `README.md` file to the project directory.
-2. Stage all files for the initial commit:
+### **3. Commit Changes Locally**
+1. **Add Files:**
    ```bash
    git add .
    ```
-3. Commit the files with a descriptive message:
+
+2. **Commit Files:**
    ```bash
    git commit -m "Initial commit: Add documentation and website files"
    ```
-   ![Text](images/gitcommit.png)
+   ![Git Commit](images/gitcommit.png)
+
 ---
 
-### 4. Create and Push to a GitHub Repository
-1. **Create a New Repository on GitHub**:
-   - Log in to GitHub.
-   - Click on **New Repository**.
-   ![Text](images/newrepo.png)
-   - Fill in the repository details:
+### **4. Push to GitHub**
+
+1. **Create a Repository on GitHub:**
+   - Navigate to [GitHub](https://github.com) and create a new repository.
+     ![Text](images/newrepo.png)
+   -  Fill in the repository details:
      - **Name**:`LAMP Stack - (OJT)Task- ATW Ltd`.
      - **Visibility**: Public.
       ![Text](images/repoconfig.png)
    - Click **Create Repository**.
-   ![Text](images/repo.png)
+     ![Text](images/repo.png)
+   - Copy the repository URL.
 
-
-2. **Add the GitHub Repository as a Remote**:
+2. **Add Remote Origin:**
    ```bash
-   git remote add origin <your-github-repo-url>
+   git remote add origin https://github.com/ShimaaELsaadi/LAMP-Stack-OJT-Task-ATW-Ltd.git
    ```
-   Replace `<your-github-repo-url>` with the repository URL, e.g., `https://github.com/username/LAMP-Stack-Setup.git`.
 
-3. **Push to GitHub**:
+3. **Push Changes:**
    ```bash
-   git push -u origin main
+   git branch -M master
+   git push -u origin master
    ```
+   ![Git Push](images/push.png)
 
 ---
 
-## Verification
-- Confirm the repository is visible on your GitHub account.
-- Ensure sensitive files listed in `.gitignore` are excluded.
+## Conclusion
+By following the steps in this guide, you can successfully set up a LAMP stack, host a PHP-based website with database functionality, and make it publicly accessible on AWS. Additionally, version control with Git and GitHub ensures an organized and collaborative workflow.
 
----
 
 # Networking Basics
 
