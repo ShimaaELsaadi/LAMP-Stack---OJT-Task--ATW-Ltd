@@ -330,8 +330,6 @@ If you encounter any issues, feel free to reach out for support!
    git init
    ```
    ![Text](images/gitinit.png)
-
-
 ---
 
 ### 2. Create a `.gitignore` File
@@ -339,19 +337,28 @@ If you encounter any issues, feel free to reach out for support!
    ```bash
    nano .gitignore
    ```
-2. Add entries to exclude sensitive files and unnecessary files. Example content:
+2. Add entries to exclude sensitive files and unnecessary files. The content:
    ```
-   # Ignore sensitive files
-   *.env
-   config.php
-   db_credentials.php
-
-   # Ignore log files
-   *.log
-
-   # Ignore system files
-   .DS_Store
-   .vscode/
+    # Ignore sensitive files
+    *.env
+    config.php
+    db_credentials.php
+    .gitignore
+    # Ignore log files
+    *.log
+    lamp.log
+    upgrade_apache.log
+    upgrade_db.log
+    upgrade_php.log
+    upgrade_phpmyadmin.log
+    upgrade_adminer.log
+    # Ignore system files
+    .DS_Store
+    .vscode/
+    pmaversion.txt
+    software/
+    mysql_bkup/
+    mariadb_bkup/
    ```
 3. Save and exit the file (`CTRL + O`, `Enter`, `CTRL + X`).
 
@@ -367,17 +374,21 @@ If you encounter any issues, feel free to reach out for support!
    ```bash
    git commit -m "Initial commit: Add documentation and website files"
    ```
-
+   ![Text](images/gitcommit.png)
 ---
 
 ### 4. Create and Push to a GitHub Repository
 1. **Create a New Repository on GitHub**:
    - Log in to GitHub.
    - Click on **New Repository**.
+   ![Text](images/newrepo.png)
    - Fill in the repository details:
-     - **Name**: e.g., `LAMP-Stack-Setup`.
-     - **Visibility**: Public or Private.
+     - **Name**:`LAMP Stack - (OJT)Task- ATW Ltd`.
+     - **Visibility**: Public.
+      ![Text](images/repoconfig.png)
    - Click **Create Repository**.
+   ![Text](images/repo.png)
+
 
 2. **Add the GitHub Repository as a Remote**:
    ```bash
